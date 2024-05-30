@@ -6,7 +6,7 @@ body {
     background-color: #f9f9f9;
 }
 
-h1 {
+.title {
     background-color: #4CAF50;
     color: white;
     text-align: center;
@@ -14,14 +14,23 @@ h1 {
     margin: 0;
 }
 
-.articles {
+.bodyArticles {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    border-radius: 5px; /* Закругленные углы */
+}
+
+.comments {
     list-style: none;
     padding: 0;
     margin: 20px auto;
     max-width: 800px;
 }
 
-.articles div {
+.comments li {
     background-color: white;
     margin: 10px 0;
     padding: 20px;
@@ -30,32 +39,6 @@ h1 {
     transition: transform 0.3s; /* Плавная анимация при наведении */
 }
 
-.articles li:hover {
+.comments li:hover {
     transform: translateY(-5px); /* Смещение вверх при наведении */
-}
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.pagination a {
-    color: #4CAF50;
-    text-decoration: none;
-    padding: 10px 15px;
-    border: 1px solid #4CAF50;
-    margin: 0 5px; /* Добавляем пробел между номерами страниц */
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.pagination a:hover {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.pagination a.active {
-    background-color: #4CAF50;
-    color: white;
 }

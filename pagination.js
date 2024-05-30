@@ -1,55 +1,30 @@
-import { Get } from "./renderingArticles.js";
+export function createPagination(pagination, container) {
+    const paginationContainer = container; 
+    const { pages: totalPageCount, page: activePage } = pagination;
 
+    const createPageLink = (pageNumber, isActive = false) => {
+        const pageLink = document.createElement('a');
+        pageLink.className = 'pagination-link';
+        pageLink.href = pageNumber === 1 ? 'index.html' : `index.html?page=${pageNumber}`;
+        pageLink.innerText = pageNumber;
+        if (isActive) pageLink.classList.add('current');
+        return pageLink;
+    };
 
-let count = 1
+    const addEllipsis = () => {
+        const ellipsis = document.createElement('span');
+        ellipsis.className = 'pagination-ellipsis';
+        ellipsis.innerText = '...';
+        paginationContainer.append(ellipsis);
+    };
 
-export function pagination() {
-    let list = document.querySelector(".articles");
-    let buttomReturn = document.createElement("button");
-    let buttomForward = document.createElement("button");
-    let buttom1 = document.createElement("button");
-    buttom1.textContent = "Начало";
-    let buttom100 = document.createElement("button");
-    buttom100.textContent = "Конец"
+    if (activePage > 2) paginationContainer.append(createPageLink(1));
+    if (activePage > 3) addEllipsis();
+    if (activePage > 1) paginationContainer.append(createPageLink(activePage- 1));
 
-    buttom1.addEventListener("click", function(){
-        list.innerHTML = "";
-        buttomReturn.textContent = "1"
-        buttomForward.textContent  = "2"
-        Get(1);
-        count = 1
-    });
-    
-    buttom100.addEventListener("click", function(){
-        list.innerHTML = "";
-        buttomReturn.textContent = "99";
-        buttomForward.textContent = "100";
-        Get(100);
-        count = 100
-    });
-    
-    buttomReturn.addEventListener("click", function() {
-        if (count > 1) {
-            list.innerHTML = "";
-            count -= 1
-            Get(count);
-            buttomReturn.textContent = count - 1;
-            buttomForward.textContent  = count;
-        } 
-    });
+    paginationContainer.append(createPageLink(activePage, true));
 
-    buttomForward.addEventListener("click", function() {
-        if (count < 100) {
-            list.innerHTML = "";
-            count += 1
-            console.log(count)
-            Get(count);
-            buttomReturn.textContent = count - 1;
-            buttomForward.textContent  = count;
-        } 
-    });
-
-    buttomReturn.textContent = count;
-    buttomForward.textContent  = count + 1;
-    document.body.append(buttom1, buttomReturn, buttomForward, buttom100);
+    if (activePage < totalPageCount) paginationContainer.append(createPageLink(activePage + 1));
+    if (activePage < totalPageCount - 2) addEllipsis();
+    if (activePage < totalPageCount - 1) paginationContainer.append(createPageLink(totalPageCount));
 }
